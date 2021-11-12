@@ -17,10 +17,10 @@
   <main>
      <h3>Search for Bars/Restaurants</h3>
         <form>
-            <div>
+        <div>
           <label>Search</label>
           <input type="text" placeholder="Search"/>
-          </div>
+        </div>
           <input type="checkbox"/>
           <label>Bars</label>
           <input type="checkbox"/>
@@ -28,6 +28,16 @@
           <input type="checkbox"/>
           <label>Both</label>
           <div>
+            <input type="checkbox"/>
+            <label>Flights</label>
+            <div class="">
+                <label for="modalDueDate">Departure</label>
+                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
+              </div>
+              <div class="">
+                <label for="modalDueDate">Arrival</label>
+                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
+              </div>
           <button type="submit" class="btn">Submit</button>
           </div>
         </form>
