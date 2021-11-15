@@ -1,7 +1,13 @@
-var flightList = document.querySelector(".flightList"); // insert class name for flight <ul> here
+import { Duffel } from '@duffel/api'
+
+const duffel = new Duffel({
+    token: duffel_test_TCwYLMchbuQPq6TtqLyK_wVVnmKGdgaUW3z-I1XfDPp,
+});
+
+var flightList = document.querySelector(".flightList");
 
 function getFlightResponse() {
-    var requestFlightURL = "https://api.duffel.com/air/offer_requests?per_page=10"; // insert api url here, edited to only show 10 results
+    var requestFlightURL = "https://api.duffel.com/air/offer_requests";
 
     $.ajax({
         url: requestFlightURL,
@@ -56,6 +62,11 @@ function getFlightData () {
 
 $("#search").click(function(event) {
     event.preventDefault();
-    var city = $("#arriveCityInput").val();
-    getFlightResponse(city);
+
+    // get all user inputs and pass them into API call function
+    var origin = $("#originInput").val();
+    var destination = $("#destinationInput").val();
+    var originDate = $("#originDate").val();
+    var destinationDate = $("#destinationDate").val();
+    getFlightResponse(origin, destination, originDate, destinationDate);
 });
