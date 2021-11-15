@@ -1,15 +1,23 @@
-// import { Duffel } from "@duffelapi"
-// const duffel = new Duffel({
-//     token: duffel_test_TCwYLMchbuQPq6TtqLyK_wVVnmKGdgaUW3z-I1XfDPp,
-// });
-
 var flightList = document.querySelector(".flightList"); // insert class name for flight <ul> here
 
-// getFlightAPI() is called when searchButton is clicked
+function getFlightResponse() {
+    var requestFlightURL = "https://api.duffel.com/air/offer_requests?per_page=10"; // insert api url here, edited to only show 10 results
 
-function getFlightAPI() {
-    // var city = $("#cityInput").val();
-    // var requestFlightURL = "https://api.duffel.com/air/offer_requests?per_page=10"; // insert api url here, edited to only show 10 results
+    $.ajax({
+        url: requestFlightURL,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer duffel_test_TCwYLMchbuQPq6TtqLyK_wVVnmKGdgaUW3z-I1XfDPp");
+            xhr.setRequestHeader("Duffel-Version", "beta");
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Accept-Encoding", "gzip");
+        },
+        success: (function(flightResponse) {
+                console.log(flightResponse);
+                getFlightData(flightResponse.json());
+                return flightResponse.json();
+        })
+    });
 
     // fetch(requestFlightURL)
     // .then(function(flightResponse) {
@@ -17,26 +25,37 @@ function getFlightAPI() {
     //     return flightResponse.json();
     // })
     // .then(function(data) {
-    //     if (data === null) {
-    //         alert("There are no flights available between the cities selected on the dates selected. Please try again or check back later!");
-    //     }
-    var data = [1, 2, 3, 4, 5];
-    var test = function() {
-        for (var i = 0; i < data.length; i++) {
-            var airline = "American Airlines"; // data[i].offers.slices.segments.operating_carrier.name;
-            var departTime = "12:00"; // data[i].offers.slices.segments.departing_at;
-            var cost = "$500"; // data[i].offers.total_amount;
-            var flightListItem = document.createElement("li");
 
-            flightListItem.textContent = "Airline: " + airline + "      " + "Depart time: " + departTime + "        " + "Price: " + cost;
-            flightList.appendChild(flightListItem);
-        }
+    //     for (var i = 0; i < data.length; i++) {
+
+    //         var airline = data[i].offers.slices.segments.operating_carrier.name;
+    //         var departTime = data[i].offers.slices.segments.departing_at;
+    //         var cost = data[i].offers.total_amount;
+    //         var flightListItem = document.createElement("li");
+
+    //         flightListItem.textContent = "Airline: " + airline + "      " + "Depart time: " + departTime + "        " + "Price: " + cost;
+    //         flightList.appendChild(flightListItem);
+    //     }
+    // });
+};
+
+function getFlightData () {
+
+    for (var i = 0; i < data.length; i++) {
+
+        var airline = data[i].offers.slices.segments.operating_carrier.name;
+        var departTime = data[i].offers.slices.segments.departing_at;
+        var cost = data[i].offers.total_amount;
+        var flightListItem = document.createElement("li");
+
+        flightListItem.textContent = "Airline: " + airline + "      " + "Depart time: " + departTime + "        " + "Price: " + cost;
+        flightList.appendChild(flightListItem);
     }
-    test();
-//     })
+
 };
 
 $("#search").click(function(event) {
     event.preventDefault();
-    getFlightAPI();
+    var city = $("#arriveCityInput").val();
+    getFlightResponse(city);
 });
