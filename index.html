@@ -19,26 +19,36 @@
       
     <form>
         <div>
-            <h3>Search For City:</h3>
-        <input type="text" placeholder="City, State"/>
+            <h3>Depart From:</h3>
+        <input type="text" placeholder="City, State" id="originInput"/>
+        <h3>Arrive at:</h3>
+        <input type="text" placeholder="City, State" id="destinationInput"/>
           <br>
        </div>
         <br>
         <div class="">
             <label for="modalDueDate">Departure Date:</label>
-             <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
-              <label for="modalDueDate">Arrival Date:</label>
-               <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
+             <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="originDate" autocomplete="off">
+              <label for="modalDueDate">Return Date:</label>
+               <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="destinationDate" autocomplete="off">
                <br>
                <br>
-               <button type="submit" class="btn">Submit</button>
+               <button type="submit" class="btn" id="search">Submit</button>
+               <div class="list-group">
+               <h3>Search Results:</h3>
           </div>
-          <h3>Search Results:</h3>
-        
+               <ul class="flightList">
+                   <!-- flight results here -->
+               </ul>
+     
+               <ul class="barList">
+                   <!-- bar/restaurant results here -->
+               </ul>
+          </div>
     </form>
   </main>
 
-  <script src="./assets/js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="./assets/js/script.mjs" type="module"></script>
 </body>
-
 </html>
