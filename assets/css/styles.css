@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 :root {
     --primary-color:#0b0638;
@@ -19,6 +20,15 @@
     }
   
   header {
+=======
+body{
+margin: 0;
+padding: 0;
+font-family:'Montserrat', sans-serif;
+}
+
+header {
+>>>>>>> c5077a0b1e67eafa72c7e72ce2cd8d3bbddaa2dc
     padding: 15px 6% 15px 0;
     display: flex;
     flex-direction: row;
@@ -65,6 +75,7 @@
   header nav ul {
     display: flex;
     flex-wrap: wrap;
+<<<<<<< HEAD
     justify-content: space-between;
     align-items: center;
     list-style: none;
@@ -355,3 +366,11 @@ figcaption{
     }
 
   }
+=======
+    text-align: center;
+}
+
+h1{
+    font-size: 72px;
+}
+>>>>>>> c5077a0b1e67eafa72c7e72ce2cd8d3bbddaa2dc
