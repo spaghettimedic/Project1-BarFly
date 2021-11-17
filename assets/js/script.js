@@ -1,9 +1,11 @@
-var lat = "";
-var lon = "";
-var minLat = "";
-var maxLat = "";
-var minLon = "";
-var maxLon = "";
+var loc = [
+    lat = "",
+    lon = "",
+    minLat = "",
+    maxLat = "",
+    minLon = "",
+    maxLon = ""
+];
 var openWeatherMapAPIkey = "126fddb2bf227e0327010f96d6495a39";
 var openTripAPIkey = "5ae2e3f221c38a28845f05b6e3685209113606efb34325fcaaa0fedf";
 var barsAPIkey = "13fc1e92ecdb7058d390ee18ec3795b8";
@@ -27,14 +29,14 @@ var getLatLon = function(userInput) {
         });
         return response.json();
     }).then(function(data) {
-        lat = data.coord.lat;
-        lon = data.coord.lon;
-        minLat = lat - 0.25;
-        maxLat = lat + 0.25;
-        minLon = lon - 0.25;
-        maxLon = lon + 0.25;
-        fetchBars(lat, lon);
-        fetchAccomodations(minLat, maxLat, minLon, maxLon);
+        loc.lat = data.coord.lat;
+        loc.lon = data.coord.lon;
+        loc.minLat = loc.lat - 0.25;
+        loc.maxLat = loc.lat + 0.25;
+        loc.minLon = loc.lon - 0.25;
+        loc.maxLon = loc.lon + 0.25;
+        fetchBars(loc.lat, loc.lon);
+        fetchAccomodations(loc.minLat, loc.maxLat, loc.minLon, loc.maxLon);
     });
 };
 
