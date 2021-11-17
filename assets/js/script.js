@@ -27,7 +27,6 @@ var getLatLon = function(userInput) {
         });
         return response.json();
     }).then(function(data) {
-        console.log(data);
         lat = data.coord.lat;
         lon = data.coord.lon;
         minLat = lat - 0.25;
@@ -47,7 +46,6 @@ var fetchAccomodations = function() {
     .then(function(response) {
         return response.json();
     }).then(function(data) {
-        console.log(data);
         displayAccomodations(data);
         return data;
     });
@@ -58,9 +56,9 @@ var fetchBars = function(){
     var barURL = "https://api.documenu.com/v2/restaurants/search/geo?lat=" + lat + "&lon=" + lon + "&distance=1&size=10&key=" + barsAPIkey;
 
     fetch(barURL)
-    .then(function(response) {console.log(response);
+    .then(function(response) {
         return response.json();
-    }).then(function(data) {console.log(data);
+    }).then(function(data) {
         displayBars(data);
         return data;
     });
@@ -71,7 +69,7 @@ var displayAccomodations = function(data) {
     for (var i = 0; i < data.length; i++) {
         var accomodationName = data[i].name;
         
-        var accomodationEl = $("<li>").addClass().text(accomodationName);
+        var accomodationEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + accomodationName + "' target='_blank'>" + accomodationName + "</a>");
         $("#accomodationList").append(accomodationEl);
     };
 };
@@ -81,7 +79,7 @@ var displayBars = function(data) {
     for (var i = 0; i < data.data.length; i++) {
         var barName = data.data[i].restaurant_name;
         
-        var barEl = $("<li>").addClass().text(barName);
+        var barEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + barName + "' target='_blank'>" + barName + "</a>");
         $("#barList").append(barEl);
     };
 };
