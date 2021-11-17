@@ -10,7 +10,8 @@
 </head>
 
 <body>
-  <header>
+
+<header>
     <h1>BarFly</h1>
 </header>
 
@@ -18,31 +19,30 @@
       
     <form>
         <div>
-            <h3>Search For City:</h3>
-        <input type="text" placeholder="City, State"/>
+        <h3>Destination:</h3>
+        <input type="text" placeholder="City" id="destinationInput"/>
           <br>
        </div>
         <br>
         <div class="">
-            <label for="modalDueDate">Departure Date:</label>
-             <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
-              <label for="modalDueDate">Arrival Date:</label>
-               <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="modalDueDate" autocomplete="off">
-               <br>
-               <br>
-               <button type="submit" class="btn">Submit</button>
+          <br>
+          <br>
+          <button type="submit" class="btn" id="search">Submit</button>
           </div>
-        </form>
-      </div>
-      <div id="resultBars">
-        <h2>Show Bars/Restaurants:</h2>
-      </div>
-      <div id="resultAmusements">
-        <h2>Show Flights</h2>
-      </div>
+    </form>
+          <h3>Search Results:</h3>
+          <ul class="" id="accomodationList">
+            <h4>Accomodations</h4>
+            <!-- accomodation results here -->
+          </ul>
+
+          <ul class="" id="barList">
+            <h4>Bars/Restaurants</h4>
+            <!-- bar/restaurant results here -->
+          </ul>
   </main>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="./assets/js/script.js"></script>
 </body>
-
 </html>
