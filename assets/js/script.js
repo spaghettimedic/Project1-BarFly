@@ -67,4 +67,5 @@ $("#search").click(function(event) {
 
     userInput = $("#destinationInput").val();
     getLatLon(userInput);
+    $("#destinationInput").val("");
 });
