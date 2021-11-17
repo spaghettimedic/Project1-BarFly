@@ -6,9 +6,10 @@ var minLon = "";
 var maxLon = "";
 var openWeatherMapAPIkey = "126fddb2bf227e0327010f96d6495a39";
 var openTripAPIkey = "5ae2e3f221c38a28845f05b6e3685209113606efb34325fcaaa0fedf";
+var barsAPIkey = "13fc1e92ecdb7058d390ee18ec3795b8";
 
 
-// this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAmusements to call openTrip API
+// this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAccomodations to call openTrip API
 var getLatLon = function(userInput) {
     var getLatLonUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=" + openWeatherMapAPIkey;
 
@@ -33,31 +34,55 @@ var getLatLon = function(userInput) {
         maxLat = lat + 0.25;
         minLon = lon - 0.25;
         maxLon = lon + 0.25;
-        fetchAmusements(minLat, maxLat, minLon, maxLon);
-    })
+        fetchBars(lat, lon);
+        fetchAccomodations(minLat, maxLat, minLon, maxLon);
+    });
 };
 
-// results from getLatLon() is passed into this function to make API call - the data from the call is passed into dispalyAmusements()
-var fetchAmusements = function() {
-    var amusementsURL = "https://api.opentripmap.com/0.1/en/places/bbox?lon_min=" + minLon + "&lon_max=" + maxLon + "&lat_min=" + minLat + "&lat_max=" + maxLat + "&kinds=amusements&format=json&limit=10&apikey=" + openTripAPIkey;
+// results from getLatLon() is passed into this function to make API call
+var fetchAccomodations = function() {
+    var accomodationsURL = "https://api.opentripmap.com/0.1/en/places/bbox?lon_min=" + minLon + "&lon_max=" + maxLon + "&lat_min=" + minLat + "&lat_max=" + maxLat + "&kinds=accomodations&format=json&limit=10&apikey=" + openTripAPIkey;
 
-    fetch(amusementsURL)
+    fetch(accomodationsURL)
     .then(function(response) {
         return response.json();
     }).then(function(data) {
         console.log(data);
-        displayAmusements(data);
+        displayAccomodations(data);
         return data;
     });
 };
 
-// this function dynamcially creates elements on the page
-var displayAmusements = function(data) {
+// results from getLatLon() are passed into this function to make API call
+var fetchBars = function(){
+    var barURL = "https://api.documenu.com/v2/restaurants/search/geo?lat=" + lat + "&lon=" + lon + "&distance=1&size=10&key=" + barsAPIkey;
+
+    fetch(barURL)
+    .then(function(response) {console.log(response);
+        return response.json();
+    }).then(function(data) {console.log(data);
+        displayBars(data);
+        return data;
+    });
+};
+
+// this function dynamcially creates elements on the page from accomodations API data
+var displayAccomodations = function(data) {
     for (var i = 0; i < data.length; i++) {
-        var amusementName = data[i].name;
+        var accomodationName = data[i].name;
         
-        var amusementEl = $("<li>").addClass().text(amusementName);
-        $("#amusementList").append(amusementEl);
+        var accomodationEl = $("<li>").addClass().text(accomodationName);
+        $("#accomodationList").append(accomodationEl);
+    };
+};
+
+// this function dynamcially creates elements on the page from bar/restaurant API data
+var displayBars = function(data) {
+    for (var i = 0; i < data.data.length; i++) {
+        var barName = data.data[i].restaurant_name;
+        
+        var barEl = $("<li>").addClass().text(barName);
+        $("#barList").append(barEl);
     };
 };
 
