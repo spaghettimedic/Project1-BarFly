@@ -1,5 +1,5 @@
 var barsEl = document.querySelector("#resultBars");
-var flightsEl = document.querySelector("#resultFlights");
+var amusementsEl = document.querySelector("#resultAmusements");
 
 var displayIntel = function() {
     for (var i = 0; i < intel.length; i++) {
@@ -17,17 +17,17 @@ var displayIntel = function() {
         
     }
 
-    for (var i = 0; i < intelFlights.length; i++) {
-        var flightName = intelFlights[i];
+    for (var i = 0; i < intelAmusements.length; i++) {
+        var amusementName = intelAmusements[i];
 
-        var flightEl = document.createElement("div");
-        flightEl.classList = "";
+        var amusementEl = document.createElement("div");
+        amusementEl.classList = "";
 
-        var titleFlEl = document.createElement("span");
-        titleFlEl.textContent = flightName;
+        var titleAmEl = document.createElement("span");
+        titleAmEl.textContent = amusementName;
 
-        flightEl.appendChild(titleFlEl);
+        amusementsEl.appendChild(titleFlEl);
 
-        flightsEl.appendChild(flightEl);
+        amusementsEl.appendChild(amusementEl);
     }
 };
