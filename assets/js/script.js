@@ -1,5 +1,7 @@
-var getLatLon = function(userInput) {
-    var getLatLonUrl = "https://api.documenu.com/v2/restaurants/search/geo?key=13fc1e92ecdb7058d390ee18ec3795b8&" + userInput + "&distance=1&fullmenu"
+
+
+var getCityBars = function(userInput) {
+    var getLatLonUrl = "https://api.documenu.com/v2/restaurants/search/geo?key=13fc1e92ecdb7058d390ee18ec3795b8&" + userInput + "&distance=1&size=10"
     fetch(getLatLonUrl)
     .then(function(response) {
         //$.ajax({
@@ -19,4 +21,4 @@ var getLatLon = function(userInput) {
     })
 };
 
-getLatLon("lat=40.688072&lon=-73.997385");
+getCityBars("lat=40.688072&lon=-73.997385");
