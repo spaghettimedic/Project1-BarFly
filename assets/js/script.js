@@ -4,10 +4,24 @@ var minLat = "";
 var maxLat = "";
 var minLon = "";
 var maxLon = "";
+var barFlyCities = [];
 var openWeatherMapAPIkey = "126fddb2bf227e0327010f96d6495a39";
 var openTripAPIkey = "5ae2e3f221c38a28845f05b6e3685209113606efb34325fcaaa0fedf";
 var barsAPIkey = "13fc1e92ecdb7058d390ee18ec3795b8";
 
+
+var loadBarFlyCities = function() {
+    // get barFlyCities array from localStorage, or initialize it in localStorage if it doesn't exist (first use of application, or user manually cleared their localStorage)
+    barFlyCities = JSON.parse(localStorage.getItem("barFlyCities") ?? "[]");
+    // clear all city buttons so they can be regenerated without being repeated
+    $("#cityBtnContainer").html("");
+
+    // create for loop to create button elements for each city in barFlyCities array
+    for (var i = 0; i < barFlyCities.length; i++) {
+        var cityName = barFlyCities[i];
+        displayCityButtons(cityName);
+    };
+};
 
 // this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAccomodations to call openTrip API
 var getLatLon = function(userInput) {
@@ -27,7 +41,6 @@ var getLatLon = function(userInput) {
         });
         return response.json();
     }).then(function(data) {
-        console.log(data);
         lat = data.coord.lat;
         lon = data.coord.lon;
         minLat = lat - 0.25;
@@ -39,6 +52,26 @@ var getLatLon = function(userInput) {
     });
 };
 
+var displayCityButtons = function(userInput) {
+
+    barFlyCities.push(userInput);
+
+    // check if there are any duplicate cities and remove them from barFlyCities
+    var filteredbarFlyCities = barFlyCities.filter((item, index) => barFlyCities.indexOf(item) === index);
+    barFlyCities = filteredbarFlyCities;
+    if (barFlyCities.length > 5) {
+        barFlyCities = barFlyCities.slice(1)
+    };
+
+    localStorage.setItem("barFlyCities", JSON.stringify(barFlyCities));
+    $("#cityBtnContainer").empty();
+
+    for (var i = 0; i < barFlyCities.length; i++) {
+        var cityBtnEl = $("<button>").addClass().text(barFlyCities[i]);
+        $("#cityBtnContainer").append(cityBtnEl);
+    }
+};
+
 // results from getLatLon() is passed into this function to make API call
 var fetchAccomodations = function() {
     var accomodationsURL = "https://api.opentripmap.com/0.1/en/places/bbox?lon_min=" + minLon + "&lon_max=" + maxLon + "&lat_min=" + minLat + "&lat_max=" + maxLat + "&kinds=accomodations&format=json&limit=10&apikey=" + openTripAPIkey;
@@ -47,7 +80,6 @@ var fetchAccomodations = function() {
     .then(function(response) {
         return response.json();
     }).then(function(data) {
-        console.log(data);
         displayAccomodations(data);
         return data;
     });
@@ -58,9 +90,9 @@ var fetchBars = function(){
     var barURL = "https://api.documenu.com/v2/restaurants/search/geo?lat=" + lat + "&lon=" + lon + "&distance=1&size=10&key=" + barsAPIkey;
 
     fetch(barURL)
-    .then(function(response) {console.log(response);
+    .then(function(response) {
         return response.json();
-    }).then(function(data) {console.log(data);
+    }).then(function(data) {
         displayBars(data);
         return data;
     });
@@ -92,5 +124,6 @@ $("#search").click(function(event) {
 
     userInput = $("#destinationInput").val();
     getLatLon(userInput);
+    displayCityButtons(userInput);
     $("#destinationInput").val("");
 });
