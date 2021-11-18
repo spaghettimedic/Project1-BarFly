@@ -1,19 +1,18 @@
-var loc = [
-    lat = "",
-    lon = "",
-    minLat = "",
-    maxLat = "",
-    minLon = "",
-    maxLon = ""
-];
+var lat = "";
+var lon = "";
+var minLat = "";
+var maxLat = "";
+var minLon = "";
+var maxLon = "";
 var openWeatherMapAPIkey = "126fddb2bf227e0327010f96d6495a39";
 var openTripAPIkey = "5ae2e3f221c38a28845f05b6e3685209113606efb34325fcaaa0fedf";
 var barsAPIkey = "13fc1e92ecdb7058d390ee18ec3795b8";
+var input = [];
 
 
 // this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAccomodations to call openTrip API
-var getLatLon = function(userInput) {
-    var getLatLonUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=" + openWeatherMapAPIkey;
+var getLatLon = function(input) {
+    var getLatLonUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + input + "&units=imperial&appid=" + openWeatherMapAPIkey;
 
     fetch(getLatLonUrl)
     .then(function(response) {
@@ -22,22 +21,25 @@ var getLatLon = function(userInput) {
             type: "POST",
             statusCode: {
                 404: function() {
-                    alert('"' + userInput + '"' + " is not a valid City name. Please try again!");
+                    alert('"' + input + '"' + " is not a valid City name. Please try again!");
                     return;
                 }
             }
         });
         return response.json();
     }).then(function(data) {
-        loc.lat = data.coord.lat;
-        loc.lon = data.coord.lon;
-        loc.minLat = loc.lat - 0.25;
-        loc.maxLat = loc.lat + 0.25;
-        loc.minLon = loc.lon - 0.25;
-        loc.maxLon = loc.lon + 0.25;
-        fetchBars(loc.lat, loc.lon);
-        fetchAccomodations(loc.minLat, loc.maxLat, loc.minLon, loc.maxLon);
+        lat = data.coord.lat;
+        lon = data.coord.lon;
+        minLat = lat - 0.25;
+        maxLat = lat + 0.25;
+        minLon = lon - 0.25;
+        maxLon = lon + 0.25;
+        fetchBars(lat, lon);
+        fetchAccomodations(minLat, maxLat, minLon, maxLon);
     });
+
+    localStorage.setItem("input", JSON.stringify(input));
+    console.log(input);
 };
 
 // results from getLatLon() is passed into this function to make API call
@@ -86,11 +88,19 @@ var displayBars = function(data) {
     };
 };
 
+var loadInput = function() {
+    input = JSON.parse(localStorage.getItem("input") ?? "[]");
+        getLatLon();
+};
+
 // when search button is clicked, destination field text is passed into getLatLon()
 $("#search").click(function(event) {
     event.preventDefault();
 
     userInput = $("#destinationInput").val();
-    getLatLon(userInput);
+    input.push(userInput);
+    getLatLon(input);
     $("#destinationInput").val("");
 });
+
+loadInput();
