@@ -23,7 +23,7 @@ var loadBarFlyCities = function() {
     };
 };
 
-// this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAccomodations to call openTrip API
+// this function gets latitude and longitude values that are then altered to get min and max values for each, and those are passed into fetchAccommodations to call openTrip API
 var getLatLon = function(userInput) {
     var getLatLonUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=" + openWeatherMapAPIkey;
 
@@ -48,7 +48,7 @@ var getLatLon = function(userInput) {
         minLon = lon - 0.25;
         maxLon = lon + 0.25;
         fetchBars(lat, lon);
-        fetchAccomodations(minLat, maxLat, minLon, maxLon);
+        fetchAccommodations(minLat, maxLat, minLon, maxLon);
     });
 };
 
@@ -73,14 +73,14 @@ var displayCityButtons = function(userInput) {
 };
 
 // results from getLatLon() is passed into this function to make API call
-var fetchAccomodations = function() {
-    var accomodationsURL = "https://api.opentripmap.com/0.1/en/places/bbox?lon_min=" + minLon + "&lon_max=" + maxLon + "&lat_min=" + minLat + "&lat_max=" + maxLat + "&kinds=accomodations&format=json&limit=10&apikey=" + openTripAPIkey;
+var fetchAccommodations = function() {
+    var accommodationsURL = "https://api.opentripmap.com/0.1/en/places/bbox?lon_min=" + minLon + "&lon_max=" + maxLon + "&lat_min=" + minLat + "&lat_max=" + maxLat + "&kinds=accomodations&format=json&limit=10&apikey=" + openTripAPIkey;
 
-    fetch(accomodationsURL)
+    fetch(accommodationsURL)
     .then(function(response) {
         return response.json();
     }).then(function(data) {
-        displayAccomodations(data);
+        displayAccommodations(data);
         return data;
     });
 };
@@ -98,13 +98,13 @@ var fetchBars = function(){
     });
 };
 
-// this function dynamcially creates elements on the page from accomodations API data
-var displayAccomodations = function(data) {
+// this function dynamcially creates elements on the page from accommodations API data
+var displayAccommodations = function(data) {
     for (var i = 0; i < data.length; i++) {
-        var accomodationName = data[i].name;
+        var accommodationName = data[i].name;
         
-        var accomodationEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + accomodationName + "' target='_blank'>" + accomodationName + "</a>");
-        $("#accomodationList").append(accomodationEl);
+        var accommodationEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + accommodationName + "' target='_blank'>" + accommodationName + "</a>");
+        $("#accommodationList").append(accommodationEl);
     };
 };
 
@@ -126,6 +126,6 @@ $("#search").click(function(event) {
     getLatLon(userInput);
     displayCityButtons(userInput);
     $("#destinationInput").val("");
-    $("#accomodationList").empty();
+    $("#accommodationList").empty();
     $("#barList").empty();
 });
