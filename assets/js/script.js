@@ -67,7 +67,7 @@ var displayCityButtons = function(userInput) {
     $("#cityBtnContainer").empty();
 
     for (var i = 0; i < barFlyCities.length; i++) {
-        var cityBtnEl = $("<button>").addClass("button success").text(barFlyCities[i]);
+        var cityBtnEl = $("<button>").addClass("button success btn-city").text(barFlyCities[i]);
         $("#cityBtnContainer").append(cityBtnEl);
     }
 };
@@ -129,3 +129,30 @@ $("#search").click(function(event) {
     $("#accommodationList").empty();
     $("#barList").empty();
 });
+
+$("#cityBtnContainer").on("click", ".btn-city", function(event) {
+    event.preventDefault();
+
+    $("#accommodationList").empty();
+    $("#barList").empty();
+
+    userInput = $(this).text()
+    getLatLon(userInput);
+});
+
+// clears all cities on button click
+$("#clearCities").click(function(event) {
+    event.preventDefault();
+    $("#cityBtnContainer").empty();
+    barFlyCities = [];
+    localStorage.setItem("barFlyCities", JSON.stringify(barFlyCities));
+});
+
+// clear results on button click
+$("#clearResults").click(function(event) {
+    event.preventDefault();
+    $("#accommodationList").empty();
+    $("#barList").empty();
+});
+
+$(document).ready(loadBarFlyCities);

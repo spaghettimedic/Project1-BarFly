@@ -29,6 +29,7 @@ h1{
 
 .button-group, h4 {
     max-width: 40%;
+    margin: auto;
 }
 
 a {

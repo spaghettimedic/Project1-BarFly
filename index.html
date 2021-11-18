@@ -25,6 +25,9 @@
               <input type="text" placeholder="City" id="destinationInput"/>
             </div>
             <button type="submit" class="submit button secondary" id="search">Submit</button>
+            <br>
+            <button type="button" class="button warning" id="clearResults">Clear Results</button>
+            <button type="button" class="button alert" id="clearCities">Clear Cities</button>
         </form>
         <br>
 
@@ -34,16 +37,16 @@
 
         <h3>Search Results:</h3>
       </div>
-      <div class="grid-x grid-padding-x align-center">
-        <div class="cell medium-6">
-          <h4 class="">Accommodations</h4>
+      <div class="grid-x grid-padding-x">
+        <div class="medium-6">
+          <h4>Accommodations</h4>
           <div class="button-group no-gap stacked align-center" id="accommodationList">
           <!-- accommodation results here -->
           </div>
         </div>
 
-        <div class="cell medium-6">
-          <h4 class="border">Bars/Restaurants</h4>
+        <div class="medium-6">
+          <h4>Bars/Restaurants</h4>
           <div class="button-group no-gap stacked align-center" id="barList">
             <!-- bar/restaurant results here -->
           </div>
