@@ -24,29 +24,29 @@
             <div class="grid-x grid-padding-x align-center">
               <input type="text" placeholder="City" id="destinationInput"/>
             </div>
-            <button type="submit" class="btn" id="search">Submit</button>
+            <button type="submit" class="submit button secondary" id="search">Submit</button>
         </form>
         <br>
 
-        <div id="cityBtnContainer">
-
+        <div class="grid-x grid-margin-x align-spaced" id="cityBtnContainer">
+          <!-- city buttons here -->
         </div>
 
         <h3>Search Results:</h3>
       </div>
       <div class="grid-x grid-padding-x align-center">
-        <div class="">
-          <h4>Accommodations</h4>
-          <ul id="accommodationList">
+        <div class="cell medium-6">
+          <h4 class="">Accommodations</h4>
+          <div class="button-group no-gap stacked align-center" id="accommodationList">
           <!-- accommodation results here -->
-          </ul>
+          </div>
         </div>
 
-        <div class="">
-          <h4>Bars/Restaurants</h4>
-          <ul id="barList">
+        <div class="cell medium-6">
+          <h4 class="border">Bars/Restaurants</h4>
+          <div class="button-group no-gap stacked align-center" id="barList">
             <!-- bar/restaurant results here -->
-          </ul>
+          </div>
         </div>
       </div>
     </div>

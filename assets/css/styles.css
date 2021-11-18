@@ -27,8 +27,8 @@ h1{
     font-size: 72px;
 }
 
-li {
-    list-style: none;
+.button-group, h4 {
+    max-width: 40%;
 }
 
 a {

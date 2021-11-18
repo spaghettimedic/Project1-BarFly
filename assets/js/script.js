@@ -67,7 +67,7 @@ var displayCityButtons = function(userInput) {
     $("#cityBtnContainer").empty();
 
     for (var i = 0; i < barFlyCities.length; i++) {
-        var cityBtnEl = $("<button>").addClass().text(barFlyCities[i]);
+        var cityBtnEl = $("<button>").addClass("button success").text(barFlyCities[i]);
         $("#cityBtnContainer").append(cityBtnEl);
     }
 };
@@ -103,7 +103,7 @@ var displayAccommodations = function(data) {
     for (var i = 0; i < data.length; i++) {
         var accommodationName = data[i].name;
         
-        var accommodationEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + accommodationName + "' target='_blank'>" + accommodationName + "</a>");
+        var accommodationEl = $("<button>").addClass("button warning").html("<a href='https://www.google.com/search?q=" + accommodationName + "' target='_blank'>" + accommodationName + "</a>");
         $("#accommodationList").append(accommodationEl);
     };
 };
@@ -113,7 +113,7 @@ var displayBars = function(data) {
     for (var i = 0; i < data.data.length; i++) {
         var barName = data.data[i].restaurant_name;
         
-        var barEl = $("<li>").addClass().html("<a href='https://www.google.com/search?q=" + barName + "' target='_blank'>" + barName + "</a>");
+        var barEl = $("<button>").addClass("button warning").html("<a href='https://www.google.com/search?q=" + barName + "' target='_blank'>" + barName + "</a>");
         $("#barList").append(barEl);
     };
 };
