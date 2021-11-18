@@ -67,7 +67,7 @@ var displayCityButtons = function(userInput) {
     $("#cityBtnContainer").empty();
 
     for (var i = 0; i < barFlyCities.length; i++) {
-        var cityBtnEl = $("<button>").addClass("button success btn-city").text(barFlyCities[i]);
+        var cityBtnEl = $("<button>").addClass("button secondary btn-city").text(barFlyCities[i]);
         $("#cityBtnContainer").append(cityBtnEl);
     }
 };
